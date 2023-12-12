@@ -1,28 +1,21 @@
-import { itemRemover, itemAdder } from "./functions";
+import { removeFromList } from "./functions";
 
-export default function taskCreator(title, description, dueDate, priority) {
+function taskCreator(title, description, dueDate, priority, {tasks}) {
 
-    const task = { title: title, description: description, due: dueDate, priority: priority, completed: 'Pending' };
+    const task = { title: title, description: description, due: dueDate, priority: priority, completed: 'Pending', complete, changePriority, removeFromList };
 
-    return {
-        ...task,
-        ...itemAdder(task),
-        ...itemRemover(task),
-    }
+    tasks.push(task);
 }
 
-/*
-export default class ToDoItem {
-    constructor (title, description, dueDate, priority) {
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate,
-        this.priority = priority,
-        this.completed = 'Pending'
-    }
 
-    toggleComplete() {
-        this.completed === 'Pending' ? this.completed = 'Completed' : this.completed = 'Pending';
-    };
+function complete() {    
+
+    this.completed === 'Pending' ? this.completed = 'Completed' : this.completed = 'Pending'
 }
-*/
+
+function changePriority(priority) {
+
+    this.priority = priority;
+}
+
+export { taskCreator }

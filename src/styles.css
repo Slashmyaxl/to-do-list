@@ -2,11 +2,122 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #222;
+    background-color: linen;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #222;
 }
 
 * {
     margin: 0;
     padding: 0;
-    border: 1px dotted red;
+}
+
+.grid-container {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: max(220px, 15%) 1fr;
+}
+
+.navbar {
+    display: grid;
+    grid-template-rows: repeat(auto-fit, minmax(50px, min-content));
+    row-gap: 0.5rem;
+    padding: 0.9rem 0.5rem;
+    background: hsl(230, 60%, 95%);
+    border-right: 1px solid #444;
+    border-radius: 0px 5px 0px 0px;
+    box-shadow: 0px 0px 2px #222;
+}
+
+.navbar .icon, .navbar .logo {
+    max-height: 44px;
+    width: 44px;
+}
+
+.navbar p {
+    color: #555;
+}
+
+.navbar .icon {
+    cursor: pointer;
+}
+
+.navbar > .nav-item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    align-items: center;
+    column-gap: 6px;
+}
+
+.navbar > #projects-sidebar > .side-header {
+    margin: 0.35rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.navbar > .nav-item:last-child {
+    padding-left: 1.6rem;
+}
+
+#content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-rows: repeat(auto-fit, 360px);
+    gap: 2rem;
+    padding: 2.6rem;
+    letter-spacing: 0.02rem;
+}
+
+#project-nav {
+    position: relative;
+}
+
+.project-card {
+    border: 1px solid burlywood;
+    border-radius: 4%;
+    padding: 0.75rem;
+}
+
+.project-header {
+    padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-header > h2 {
+    font-weight: 400;
+}
+
+.project-header > .project-icons > * {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.project-tasks {
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.45rem;
+    background: #fafafa;
+    border: 1px solid lightgray;
+    border-radius: 5%;
+    font-size: 0.9em;
+}
+
+.add-task {
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    justify-self: right;
+}
+
+form {
+    position: absolute;
+    top: 15px;
+    left: 55px;
+    padding: 0.75rem;
+    height: 160px;
+    width: 300px;
+    background: #fefefe;
 }
