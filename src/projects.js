@@ -4,17 +4,13 @@ const projects = [];
 
 function projectCreator(title) {
 
-    const project = { title: title, tasks: [], displayTasks, removeFromList }
+    const project = { title: title, tasks: [], editTitle, removeFromList }
 
     projects.push(project);
 }
 
-function displayTasks () {
-    
-    for (const task of this.tasks) {
-
-        console.log(` Task: ${task.title}\n Description: ${task.description}\n Due: ${task.due}\n Priority: ${task.priority}\n Completed: ${task.completed}\n\n`);   
-    }     
+function editTitle (title) {
+    this.title = title;
 }
 
 export { projects, projectCreator }

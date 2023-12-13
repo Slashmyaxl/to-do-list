@@ -97,27 +97,77 @@
 }
 
 .project-tasks {
-    margin-top: 0.5rem;
+    margin-top: 0.4rem;
     padding: 0.5rem 0.45rem;
     background: #fafafa;
     border: 1px solid lightgray;
-    border-radius: 5%;
+    border-radius: 8px;
     font-size: 0.9em;
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem;
+    font-weight: 600;
+}
+
+.task-header > p:first-child {
+    font-size: 1.2em;
+    
+}
+
+.task-header > .icon-expand {
+    height: 24px;
+    width: 24px;
+    cursor: pointer;
 }
 
 .add-task {
     height: 30px;
     width: 30px;
     cursor: pointer;
-    justify-self: right;
 }
 
-form {
+.task-body {
+    border-top: 1px solid lightgray;
+}
+
+.task-body-items {
+    padding: 0.2rem 0.75rem;
+}
+
+.task-body > * {
+    margin-top: 0.25rem;
+}
+
+.task-icons-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.task-icon {
+    height: 24px;
+    width: 24px;
+}
+
+#project-form {
     position: absolute;
     top: 15px;
     left: 55px;
     padding: 0.75rem;
     height: 160px;
     width: 300px;
+    background: #fefefe;
+}
+
+.task-form {
+    position: absolute;
+    top: 75px;
+    left: 355px;
+    padding: 0.75rem;
+    height: 260px;
+    width: 400px;
     background: #fefefe;
 }
