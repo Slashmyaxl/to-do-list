@@ -1,12 +1,11 @@
 import { removeFromList } from "./functions";
 
-function taskCreator(title, description, dueDate, priority, {tasks}) {
+export default function taskCreator(title, description, dueDate, priority, {tasks}) {
 
     const task = { title: title, description: description, due: dueDate, priority: priority, completed: 'Pending Completion', complete, editTask, removeFromList };
 
     tasks.push(task);
 }
-
 
 function complete() {    
 
@@ -20,5 +19,3 @@ function editTask(title, description, due, priority) {
     this.due = due;
     this.priority = priority;
 }
-
-export { taskCreator }
