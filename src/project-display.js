@@ -2,22 +2,23 @@ import { projects } from "./projects";
 import taskCreator from './todos.js';
 import { createDOMElement } from "./functions.js";
 import { createEditProjectForm, createAddTaskForm, createEditTaskForm } from './forms.js'
+import expandIcon from './icons/chevron-down-solid.svg';
+import { createAddTaskIcon, createEditTaskIcon, createEditProjectIcon } from "./icons.js";
 
 const content = document.querySelector('#content');
 const sidebarProjects = document.querySelector('#projects-sidebar');
 
-export default function addProjectToDOM(project) {
+function addProjectToDOM(project) {
 
     const projectID = `${projects.indexOf(project)}`
 
     const projectCard = createDOMElement('div', projectID, 'project-card');
     const projectHeader = createDOMElement('div', '', 'project-header');
-
     const projectTitle = createDOMElement('h2');
     projectTitle.textContent = project.title;
     projectHeader.appendChild(projectTitle);
 
-    const formContainer = createDOMElement('div', '', 'form-container');
+    const formContainer = createDOMElement('div', `form-container-${projectID}`, 'form-container');
     projectHeader.appendChild(formContainer);
 
     const projectIcons = createDOMElement('div', '', 'project-icons');
@@ -26,90 +27,9 @@ export default function addProjectToDOM(project) {
     //  Button(icon) which populates and removes form for editing and deleting projects
 
     const editProjectIcon = createEditProjectIcon(projectID);
-    projectIcons.appendChild(editProjectIcon);
-
-    //  Button(icon) which populates and removes form for adding tasks to projects
-
-    const addTaskIcon = createAddTaskIcon(projectID);
-    projectIcons.appendChild(addTaskIcon);
-
-    projectCard.appendChild(projectHeader);
-
-        for (const task of project.tasks) {
-
-            const taskID = project.tasks.indexOf(task);
-
-            const taskContainer = createDOMElement('div', '', 'task-container');
-            const taskHeader = createDOMElement('div', '', 'task-header');
-            const taskBodyContainer = createDOMElement('div', '', 'task-body-container');
-                taskBodyContainer.setAttribute('hidden', true);
-            const taskBody = createDOMElement('div', '', 'task-body');
-
-            const taskTitle = createDOMElement('p');
-            taskTitle.textContent = task.title;
-            taskHeader.appendChild(taskTitle);
-
-            const dueDate = createDOMElement('p');
-            dueDate.textContent = `Due ${task.due}`;
-            taskHeader.appendChild(dueDate);
-
-            const expandIcon = createDOMElement('img', '', 'icon-expand');
-            expandIcon.addEventListener('click', () => {
-                taskBodyContainer.toggleAttribute('hidden');
-            })
-            taskHeader.appendChild(expandIcon);
-
-            taskContainer.appendChild(taskHeader);
-
-            const taskIcons = createDOMElement('div', '', 'task-icons-container');
-
-            const editTaskIcon = createNewEditTaskIcon(projectID, taskID);
-            taskIcons.appendChild(editTaskIcon);
-
-            const completeTaskIcon = createDOMElement('img', `${project.tasks.indexOf(task)}`, 'task-icon')
-            completeTaskIcon.classList.add('task-icon-complete');
-            completeTaskIcon.setAttribute('alt', 'Complete')
-            completeTaskIcon.addEventListener('click', (e) => {
-                project.tasks[e.target.id].complete();
-                clearProjects();
-                displayProjects();
-            });
-            taskIcons.appendChild(completeTaskIcon);
-
-            const taskInfo = createDOMElement('div', '', 'task-info')
-            
-            const description = createDOMElement('p');
-            description.textContent = task.description;
-            taskInfo.appendChild(description);
-
-            const priority = createDOMElement('p');
-            priority.textContent = `${task.priority} priority`;
-            taskInfo.appendChild(priority);
-
-            const completed = createDOMElement('p');
-            completed.textContent = task.completed;
-            taskInfo.appendChild(completed);
-
-            taskBody.appendChild(taskInfo);
-            taskBody.appendChild(taskIcons);
-            taskBodyContainer.appendChild(taskBody);
-            taskContainer.appendChild(taskBodyContainer);
-            projectCard.appendChild(taskContainer);
-        }
-
-    content.appendChild(projectCard);
-
-    const sidebarProject = createDOMElement('h3', '', 'sidebar-project')
-    sidebarProject.textContent = project.title;
-    sidebarProjects.appendChild(sidebarProject);
-}
-
-function createEditProjectIcon(projectID) {
-    const newEditProjectIcon = createDOMElement('img', projectID, 'icon-project-edit');
-    newEditProjectIcon.setAttribute('alt', 'Edit');
-    newEditProjectIcon.addEventListener('click', () => {
+    editProjectIcon.addEventListener('click', () => {
         const newEditProjectForm = createEditProjectForm(projectID);
-        const formContainer = document.querySelector('.form-container');
+        const formContainer = document.querySelector(`#form-container-${projectID}`);
         if(formContainer.hasChildNodes()) {
             formContainer.removeChild(formContainer.lastChild);
         } else {
@@ -133,16 +53,14 @@ function createEditProjectIcon(projectID) {
             })
         }
     });
+    projectIcons.appendChild(editProjectIcon);
 
-    return newEditProjectIcon;
-}
+    //  Button(icon) which populates and removes form for adding tasks to projects
 
-function createAddTaskIcon(projectID) {
-    const newAddTaskIcon = createDOMElement('img', projectID, 'icon-task-add');
-    newAddTaskIcon.setAttribute('alt', 'Add');
-    newAddTaskIcon.addEventListener('click', () => {
+    const addTaskIcon = createAddTaskIcon(projectID);
+    addTaskIcon.addEventListener('click', () => {
         const newAddTaskForm = createAddTaskForm(projectID);
-        const formContainer = document.querySelector('.form-container');
+        const formContainer = document.querySelector(`#form-container-${projectID}`);
         if(formContainer.hasChildNodes()) {
             formContainer.removeChild(formContainer.lastChild);
         } else {
@@ -167,20 +85,78 @@ function createAddTaskIcon(projectID) {
         }
     });
 
-    return newAddTaskIcon;
+    projectIcons.appendChild(addTaskIcon);
+
+    projectCard.appendChild(projectHeader);
+
+        for (const task of project.tasks) {
+
+            const taskContainer = displayTaskToDOM(project, task);
+            projectCard.appendChild(taskContainer);
+        }
+
+    content.appendChild(projectCard);
+
+    const sidebarProject = createDOMElement('h3', '', 'sidebar-project')
+    sidebarProject.textContent = project.title;
+    sidebarProjects.appendChild(sidebarProject);
 }
 
-function createNewEditTaskIcon (projectID, taskID) {
-    const newEditTaskIcon = createDOMElement('img', taskID, 'edit-task-icon')
-    newEditTaskIcon.classList.add('task-icon-edit');
-    newEditTaskIcon.setAttribute('alt', 'Edit')
-    newEditTaskIcon.addEventListener('click', () => {
+function displayProjects() {
+
+    for (const project of projects) {
+        addProjectToDOM(project);
+    }
+
+    console.log(projects);
+}
+
+function clearProjects() {
+
+    while (content.firstChild) content.removeChild(content.lastChild)
+    while (sidebarProjects.firstChild) sidebarProjects.removeChild(sidebarProjects.lastChild) 
+}
+
+function displayTaskToDOM(project, task) {
+    const projectID = projects.indexOf(project);
+    const taskID = projects[projectID].tasks.indexOf(task);
+    const taskContainer = createDOMElement('div', '', 'task-container');
+    const taskHeader = createDOMElement('div', '', 'task-header');
+    const taskBodyContainer = createDOMElement('div', '', 'task-body-container');
+        taskBodyContainer.setAttribute('hidden', true);
+
+    taskHeader.addEventListener('click', () => {
+        taskBodyContainer.toggleAttribute('hidden');
+    })
+    
+    const taskBody = createDOMElement('div', '', 'task-body');
+
+    const taskTitle = createDOMElement('p');
+    taskTitle.textContent = task.title;
+    taskHeader.appendChild(taskTitle);
+
+    const dueDate = createDOMElement('p');
+    dueDate.textContent = `Due ${task.due}`;
+    taskHeader.appendChild(dueDate);
+
+    const expandTaskIcon = createDOMElement('img', '', 'icon-expand');
+    expandTaskIcon.src = expandIcon;
+    taskHeader.appendChild(expandTaskIcon);
+
+    taskContainer.appendChild(taskHeader);
+
+    const taskIcons = createDOMElement('div', '', 'task-icons-container');
+
+    const editTaskIcon = createEditTaskIcon();
+    editTaskIcon.addEventListener('click', () => {
         const newEditTaskForm = createEditTaskForm(projectID, taskID);
-        const formContainer = document.querySelector('.form-container');
+        const formContainer = document.querySelector(`#form-container-${projectID}`);
         if(formContainer.hasChildNodes()) {
             formContainer.removeChild(formContainer.lastChild);
         } else {
             formContainer.appendChild(newEditTaskForm);
+
+            //  Button that submits task editing/deleting
 
             const confirmEditTask = document.querySelector('#edit-task-button');
             confirmEditTask.addEventListener('click', (e) => {
@@ -201,19 +177,55 @@ function createNewEditTaskIcon (projectID, taskID) {
             })
         }
     });
+    taskIcons.appendChild(editTaskIcon);
 
-    return newEditTaskIcon;
-}
+    const completionBox = createDOMElement('input', ``, 'checkbox-complete');
+    completionBox.setAttribute('type', 'checkbox')
+    completionBox.addEventListener('click', () => {
+        task.complete();
+        if(task.completed === true) {
+            completed.textContent = 'Complete';
+            taskContainer.style.background = 'lightgreen';
+            taskContainer.style.opacity = '0.55';
+        } else {
+            completed.textContent = 'Pending Completion';
+            taskContainer.style.background = '#fefefe';
+            taskContainer.style.opacity = 'unset';
+        }
+    });
+    taskIcons.appendChild(completionBox);
 
-function displayProjects() {
+    const taskInfo = createDOMElement('div', '', 'task-info')
+    
+    const description = createDOMElement('p');
+    description.textContent = task.description;
+    taskInfo.appendChild(description);
 
-    for (const project of projects) {
-        addProjectToDOM(project);
+    const priority = createDOMElement('p', '', 'task-priority');
+    priority.textContent = `priority`;
+    if (task.priority === 'high') {
+        priority.style.cssText = 'background: rgba(254, 15, 15, 0.8);';
+        taskContainer.style.cssText = 'border: 2px solid rgba(244, 20, 20, 0.8);';
+    } else if (task.priority === 'normal') {
+        priority.style.cssText = 'background: rgba(234, 158, 2, 0.8);';
+        taskContainer.style.cssText = 'border: 2px solid rgba(234, 158, 2, 0.8);';
+    } else {
+        priority.style.cssText = 'background: rgba(228, 248, 12, 0.8);';
+        taskContainer.style.cssText = 'border: 2px solid rgba(228, 248, 12, 0.8);';
     }
+
+    taskInfo.appendChild(priority);
+
+    const completed = createDOMElement('p');
+    completed.textContent = 'Pending Completion';
+    taskInfo.appendChild(completed);
+
+    taskBody.appendChild(taskInfo);
+    taskBody.appendChild(taskIcons);
+    taskBodyContainer.appendChild(taskBody);
+    taskContainer.appendChild(taskBodyContainer);
+
+    return taskContainer;
 }
 
-function clearProjects() {
-
-    while (content.firstChild) content.removeChild(content.lastChild)
-    while (sidebarProjects.firstChild) sidebarProjects.removeChild(sidebarProjects.lastChild) 
-}
+export { displayProjects, clearProjects }

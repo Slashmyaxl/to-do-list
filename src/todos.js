@@ -2,14 +2,14 @@ import { removeFromList } from "./functions";
 
 export default function taskCreator(title, description, dueDate, priority, {tasks}) {
 
-    const task = { title: title, description: description, due: dueDate, priority: priority, completed: 'Pending Completion', complete, editTask, removeFromList };
+    const task = { title: title, description: description, due: dueDate, priority: priority, completed: false, complete, editTask, removeFromList };
 
     tasks.push(task);
 }
 
 function complete() {    
 
-    this.completed === 'Pending Completion' ? this.completed = 'Completed' : this.completed = 'Pending Completion'
+    this.completed === false ? this.completed = true : this.completed = false;
 }
 
 function editTask(title, description, due, priority) {
