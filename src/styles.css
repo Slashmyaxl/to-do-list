@@ -2,10 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: hsl(165, 55%, 85%);
+    background-color: #fdfdfd;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
-    color: #222;
+    color: #3a3a3a;
+    --palate-linen: hsl(28, 55%, 96%);
+    --palate-cyan: hsl(182, 92%, 82%);
+    --palate-light-purple: hsl(275, 90%, 88%);
 }
 
 * {
@@ -13,43 +16,77 @@
     padding: 0;
 }
 
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('./fonts/Ubuntu-Regular.ttf') format('ttf');
+    font-style: normal;
+}
+
 .grid-container {
     min-height: 100vh;
+    height: max-content;
     display: grid;
-    grid-template-columns: max(228px, 15%) 1fr;
+    grid-template-columns: max(232px, 15%) 1fr;
 }
 
 .navbar {
     display: grid;
-    grid-template-rows: repeat(auto-fit, minmax(48px, min-content));
+    grid-template-rows: repeat(auto-fit, minmax(42px, min-content));
     row-gap: 0.4rem;
-    padding: 0.9rem 0.5rem;
-    background: hsl(275, 70%, 90%);
+    padding: 0.9rem 0;
+    font-family: 'Ubuntu';
+    background: var(--palate-cyan);
     border-right: 1px solid #444;
-    border-radius: 0px 4px 0px 0px;
-    box-shadow: 0px 0px 2px #222;
+    border-radius: 0px 3px 0px 0px;
+    box-shadow: 0px 0px 2px #333;
 }
 
 .navbar .logo {
-    max-height: 46px;
-    width: 46px;
+    height: 100%;
+    width: calc(height);
+}
+
+.navbar h1 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.navbar h1, h2, h3 {
+    font-weight: 500;
 }
 
 .navbar p {
-    color: #555;
+    color: #444;
+    font-weight: 300;
 }
 
 .navbar .icon {
     cursor: pointer;
-    height: 36px;
-    width: 36px;
+    height: 82%;
+    width: calc(height);
+    padding: 0.25rem;
+}
+
+.navbar .icon:hover {
+    background: rgba(252, 252, 252, 0.9);
+    border-radius: 12px;
 }
 
 .navbar > .nav-item {
+    padding: 0 0.25rem;
     display: grid;
-    grid-template-columns: 52px 1fr;
+    grid-template-columns: 58px 1fr;
     align-items: center;
     gap: 0.5rem;
+}
+
+.navbar > .nav-item:first-child {
+    height: 60px;
+    background: hsla(0, 10%, 30%, 0.75);
+    color: #fefefe;
+    padding: 0.25rem;
 }
 
 .navbar > .nav-item > img:first-child {
@@ -58,7 +95,7 @@
 
 .navbar > #projects-sidebar > .sidebar-project {
     margin: 0.35rem;
-    font-weight: 400;
+    font-weight: 300;
     cursor: pointer;
 }
 
@@ -69,28 +106,36 @@
 #content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 0.65fr));
-    grid-template-rows: repeat(auto-fit, 360px);
+    grid-template-rows: repeat(auto-fit, minmax(360px, min-content));
     gap: 1.75rem;
-    padding: 2.6rem;
-    letter-spacing: 0.02rem;
+    padding: 2rem;
+    letter-spacing: 0.015rem;
 }
 
 #project-nav {
-    position: relative;
+    position: relative; 
+}
+
+#add-project {
+    width: 36px;
+    height: 36px;
 }
 
 .project-card {
     border: 1px solid #333;
-    border-radius: 0.5rem;
-    background: hsl(28, 55%, 97%);
+    box-shadow: 1px 1px 2px lightgray;
+    border-radius: 1rem;
+    background: var(--palate-linen);
     padding: 0.75rem;
+    min-height: 360px;
+    height: min-content;
 }
 
 .project-header {
-    padding: 0.25rem;
+    padding: 0.25rem 0.35rem;
     border-bottom: 1px solid gray;
-    display: flex;
     justify-content: space-between;
+    display: flex;
     align-items: center;
 }
 
@@ -99,13 +144,14 @@
 }
 
 .project-header > .project-icons {
+    margin-left: auto;
     display: flex;
-    gap: 0.5rem;
+    gap: 0.75rem;
 }
 
 .project-header > .project-icons > * {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
 }
 
@@ -113,6 +159,7 @@
     margin-top: 0.4rem;
     background: #fafafa;
     border-radius: 8px;
+    border: 1px solid lightgrey;
     font-size: 0.9em;
 }
 
@@ -120,7 +167,7 @@
     display: flex;
     justify-content: space-between;
     border-top: 1px solid lightgray;
-    padding: 0.1rem 0.25rem;
+    padding: 0.1rem 0.25rem 0.25rem;
     margin: 0 0.5rem;
     gap: 0.5rem;
 }
@@ -129,6 +176,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.25rem;
     margin: 0.2rem 0;
 }
 
@@ -137,13 +185,15 @@
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    padding: 0.4rem 0.45rem;
+    gap: 1rem;
+    padding: 0.3rem 0.65rem;
     font-weight: 600;
 }
 
 .task-header > p:first-child {
     font-size: 1.2em;
-    
+    font-weight: 600;
+    margin-right: auto;
 }
 
 .task-header > .icon-expand {
@@ -156,20 +206,37 @@
 }
 
 .task-info {
-    padding-left: 0.25rem;
+    width: 100%;
+    padding: 0 0.45rem 0 0;
     margin-bottom: 0.2rem;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    row-gap: 0.5rem;
+    align-items: center;
+}
+
+.task-info > p:first-child {
+    grid-column: 1 / -1;
+    font-weight: 300;
+    justify-self: start;
+}
+
+.task-info > .completion-status {
+    font-size: 0.85rem;
+    justify-self: end;
 }
 
 .task-priority {
-    border-radius: 1rem;
+    border-radius: 1.2rem;
     width: min-content;
+    font-size: 0.58rem;
+    font-weight: 400;
     padding: 0.1rem 0.45rem;
-    margin: 0.25rem 0;
 }
 
 .task-icons-container > * {
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
 }
 
 .form-container {
@@ -177,12 +244,95 @@
 }
 
 form {
+    z-index: 1;
     position: absolute;
-    top: 10px;
-    right: -95px;
-    padding: 0.75rem;
+    top: 19px;
+    left: 20px;
+    padding: 0.65rem;
     height: max-content;
-    width: 200px;
+    width: 220px;
     background: #fefefe;
+    border: 2px solid var(--palate-light-purple);
+    border-radius: 8px;
 }
 
+form input, select, option {
+    outline: none;
+    height: 1.1rem;
+    width: 10.5rem;
+    font-size: 0.8rem;
+    display: inline;
+    margin: 0.2rem 0 0.4rem;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+form input[type=checkbox] {
+    width: 1rem;
+    display: inline;
+}
+
+form select {
+    height: 1.5rem;
+    width: 4.5rem;
+}
+
+form input:invalid {
+    border: 1px solid orangered;
+}
+
+form input:valid {
+    border: 1px solid lightgray;
+}
+
+form input:focus {
+    outline: none;
+    border: 1px solid gray;
+    box-shadow: inset 1px 1px lightgray,
+                inset -1px -1px lightgray;
+}
+
+form label, button {
+    font-size: 0.9rem;
+    display: block;
+    width: max-content;
+    font-weight: 400;
+}
+
+form > .form-title {
+    border-bottom: 1px solid lightgray;
+}
+
+form h4 {
+    font-weight: 500;
+}
+
+form > .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.15rem 0;
+}
+
+form > #delete-row {
+    justify-content: flex-start;
+    gap: 0.55rem;
+}
+
+form button {
+    padding: 0.3rem 0.4rem;
+    background: var(--palate-light-purple);
+    border-radius: 12px;
+    border: 1px solid #666;
+    box-shadow: 1px 1px 1px lightgray;
+    margin-left: auto;
+    margin-top: 0.25rem;
+    cursor: pointer;
+}
+
+#project-form {
+    top: unset;
+    bottom: 48px;
+    left: 30px;
+    width: 240px;
+}

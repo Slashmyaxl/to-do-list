@@ -3,6 +3,7 @@ import taskCreator from './todos.js';
 import { createDOMElement } from "./functions.js";
 import { createEditProjectForm, createAddTaskForm, createEditTaskForm } from './forms.js'
 import expandIcon from './icons/chevron-down-solid.svg';
+import expandedIcon from './icons/angles-down-solid.svg';
 import { createAddTaskIcon, createEditTaskIcon, createEditProjectIcon } from "./icons.js";
 
 const content = document.querySelector('#content');
@@ -14,12 +15,13 @@ function addProjectToDOM(project) {
 
     const projectCard = createDOMElement('div', projectID, 'project-card');
     const projectHeader = createDOMElement('div', '', 'project-header');
-    const projectTitle = createDOMElement('h2');
-    projectTitle.textContent = project.title;
-    projectHeader.appendChild(projectTitle);
 
     const formContainer = createDOMElement('div', `form-container-${projectID}`, 'form-container');
     projectHeader.appendChild(formContainer);
+
+    const projectTitle = createDOMElement('h2');
+    projectTitle.textContent = project.title;
+    projectHeader.appendChild(projectTitle);
 
     const projectIcons = createDOMElement('div', '', 'project-icons');
     projectHeader.appendChild(projectIcons);
@@ -120,6 +122,7 @@ function clearProjects() {
 function displayTaskToDOM(project, task) {
     const projectID = projects.indexOf(project);
     const taskID = projects[projectID].tasks.indexOf(task);
+    
     const taskContainer = createDOMElement('div', '', 'task-container');
     const taskHeader = createDOMElement('div', '', 'task-header');
     const taskBodyContainer = createDOMElement('div', '', 'task-body-container');
@@ -127,6 +130,9 @@ function displayTaskToDOM(project, task) {
 
     taskHeader.addEventListener('click', () => {
         taskBodyContainer.toggleAttribute('hidden');
+        if(expandTaskIcon.src !== expandedIcon) {
+            expandTaskIcon.src = expandedIcon;
+        } else expandTaskIcon.src = expandIcon;
     })
     
     const taskBody = createDOMElement('div', '', 'task-body');
@@ -147,10 +153,12 @@ function displayTaskToDOM(project, task) {
 
     const taskIcons = createDOMElement('div', '', 'task-icons-container');
 
-    const editTaskIcon = createEditTaskIcon();
+    const editTaskIcon = createEditTaskIcon(taskID);
+
     editTaskIcon.addEventListener('click', () => {
         const newEditTaskForm = createEditTaskForm(projectID, taskID);
         const formContainer = document.querySelector(`#form-container-${projectID}`);
+
         if(formContainer.hasChildNodes()) {
             formContainer.removeChild(formContainer.lastChild);
         } else {
@@ -179,7 +187,7 @@ function displayTaskToDOM(project, task) {
     });
     taskIcons.appendChild(editTaskIcon);
 
-    const completionBox = createDOMElement('input', ``, 'checkbox-complete');
+    const completionBox = createDOMElement('input', `${taskID}`, 'checkbox-complete');
     completionBox.setAttribute('type', 'checkbox')
     completionBox.addEventListener('click', () => {
         task.complete();
@@ -192,6 +200,7 @@ function displayTaskToDOM(project, task) {
             taskContainer.style.background = '#fefefe';
             taskContainer.style.opacity = 'unset';
         }
+        console.log(task);
     });
     taskIcons.appendChild(completionBox);
 
@@ -202,22 +211,30 @@ function displayTaskToDOM(project, task) {
     taskInfo.appendChild(description);
 
     const priority = createDOMElement('p', '', 'task-priority');
-    priority.textContent = `priority`;
+    priority.textContent = `PRIORITY`;
     if (task.priority === 'high') {
-        priority.style.cssText = 'background: rgba(254, 15, 15, 0.8);';
-        taskContainer.style.cssText = 'border: 2px solid rgba(244, 20, 20, 0.8);';
+        priority.style.cssText = 'background: rgba(252, 42, 4, 0.7);';
+        taskContainer.style.cssText = 'box-shadow: inset 1px 1px 2px rgb(252, 42, 4), inset -1px -1px 2px rgb(252, 42, 4);';
     } else if (task.priority === 'normal') {
-        priority.style.cssText = 'background: rgba(234, 158, 2, 0.8);';
-        taskContainer.style.cssText = 'border: 2px solid rgba(234, 158, 2, 0.8);';
+        priority.style.cssText = 'background: rgba(250, 240, 94, 0.7);';
+        taskContainer.style.cssText = 'box-shadow: inset 1px 1px 2px rgb(250, 240, 94), inset -1px -1px 2px rgb(250,240,94);';
     } else {
-        priority.style.cssText = 'background: rgba(228, 248, 12, 0.8);';
-        taskContainer.style.cssText = 'border: 2px solid rgba(228, 248, 12, 0.8);';
+        priority.style.cssText = 'background: rgba(160, 252, 2, 0.8)';
     }
 
     taskInfo.appendChild(priority);
 
-    const completed = createDOMElement('p');
-    completed.textContent = 'Pending Completion';
+    const completed = createDOMElement('p', '', 'completion-status');
+    if(task.completed === true) {
+        completed.textContent = 'Complete';
+        completionBox.setAttribute('checked', true);
+        taskContainer.style.background = 'lightgreen';
+        taskContainer.style.opacity = '0.55';
+    } else {
+        completed.textContent = 'Pending Completion';
+        taskContainer.style.background = '#fefefe';
+        taskContainer.style.opacity = 'unset';
+    }
     taskInfo.appendChild(completed);
 
     taskBody.appendChild(taskInfo);
@@ -228,4 +245,4 @@ function displayTaskToDOM(project, task) {
     return taskContainer;
 }
 
-export { displayProjects, clearProjects }
+export { displayProjects, clearProjects, displayTaskToDOM }

@@ -1,26 +1,6 @@
 import { createForm, createDOMElement } from './functions.js';
 import { projects } from './projects.js'
 
-/*
-function createAddProjectForm () {
-    const newProjectForm = createForm('add-project', 'project-form', 'project-title');
-
-    const titleLabel = newProjectForm.firstElementChild;
-    titleLabel.textContent = 'Title ';
-
-    const titleInput = newProjectForm.querySelector('#project-title');
-    titleInput.setAttribute('type', 'text');
-    titleInput.setAttribute('name', 'project-title');
-    titleInput.setAttribute('placeholder', 'Name your Project');
-
-    const addProjectButton = createDOMElement('button', 'add-project-button', 'confirm');
-    addProjectButton.textContent = 'Add Project';
-    newProjectForm.appendChild(addProjectButton);
-
-    return newProjectForm;
-}
-*/
-
 function createEditProjectForm (projectID) {
     const newEditForm = createForm('edit-project', projectID, 'edit-project-title', 'delete-project');
 
@@ -34,12 +14,16 @@ function createEditProjectForm (projectID) {
     titleInput.setAttribute('name', 'edit-project-title');
     titleInput.setAttribute('value', `${projects[projectID].title}`);
 
+    const deleteRow = createDOMElement('div', 'delete-row', 'form-row');
     const deleteLabel = titleInput.nextElementSibling;
     deleteLabel.textContent = 'Remove ';
+    deleteRow.appendChild(deleteLabel);
     
     const deleteInput = newEditForm.querySelector('#delete-project');
     deleteInput.setAttribute('type', 'checkbox');
-    deleteInput.setAttribute('name', 'delete-project')
+    deleteInput.setAttribute('name', 'delete-project');
+    deleteRow.appendChild(deleteInput);
+    newEditForm.appendChild(deleteRow);
 
     const confirmProjectEdit = createDOMElement('button', 'edit-project-button', 'confirm');
     confirmProjectEdit.textContent = 'Confirm';
@@ -78,6 +62,7 @@ function createAddTaskForm (projectID) {
 
     const priorityLabel = createDOMElement('label');
     priorityLabel.setAttribute('for', 'task-priority');
+    priorityLabel.textContent = 'Priority ';
 
     const priorityInput = createDOMElement('select', 'task-priority');
     priorityInput.setAttribute('name', 'task-priority');
@@ -110,6 +95,7 @@ function createAddTaskForm (projectID) {
 
 function createEditTaskForm (projectID, taskID) {
     const newEditForm = createForm('edit-task', taskID, 'edit-task-name', 'edit-task-description', 'edit-task-due', 'delete-task');
+    const task = projects[projectID].tasks[taskID];
 
     //  Form-specific DOM attributes for editing/deleting Tasks
 
@@ -119,7 +105,7 @@ function createEditTaskForm (projectID, taskID) {
     const nameInput = newEditForm.querySelector('#edit-task-name');
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('name', 'edit-task-name');
-    nameInput.setAttribute('value', `${projects[projectID].tasks[taskID].title}`);
+    nameInput.setAttribute('value', task.title);
 
     const descLabel = nameInput.nextElementSibling;
     descLabel.textContent = 'Description ';
@@ -127,7 +113,7 @@ function createEditTaskForm (projectID, taskID) {
     const descInput = newEditForm.querySelector('#edit-task-description');
     descInput.setAttribute('type', 'text');
     descInput.setAttribute('name', 'task-description');
-    descInput.setAttribute('value', `${projects[projectID].tasks[taskID].description}`);
+    descInput.setAttribute('value', task.description);
 
     const dueLabel = descInput.nextElementSibling;
     dueLabel.textContent = 'Due ';
@@ -135,6 +121,7 @@ function createEditTaskForm (projectID, taskID) {
     const dueInput = newEditForm.querySelector('#edit-task-due');
     dueInput.setAttribute('type', 'date');
     dueInput.setAttribute('name', 'task-due-date');
+    dueInput.setAttribute('value', task.due)
 
     const priorityLabel = createDOMElement('label');
     priorityLabel.setAttribute('for', 'edit-task-priority');
@@ -142,7 +129,6 @@ function createEditTaskForm (projectID, taskID) {
 
     const priorityInput = createDOMElement('select', 'edit-task-priority');
     priorityInput.setAttribute('name', 'edit-task-priority');
-    priorityInput.setAttribute('value',`${projects[projectID].tasks[taskID].due}`)
 
     const option1 = createDOMElement('option');
     option1.setAttribute('value', 'high');
@@ -151,6 +137,7 @@ function createEditTaskForm (projectID, taskID) {
 
     const option2 = createDOMElement('option');
     option2.setAttribute('value', 'normal');
+    option2.setAttribute('selected', true);
     option2.textContent = 'Normal';
     priorityInput.appendChild(option2);
 
@@ -159,18 +146,22 @@ function createEditTaskForm (projectID, taskID) {
     option3.textContent = 'Low'
     priorityInput.appendChild(option3);
 
+    const deleteRow = createDOMElement('div', 'delete-row', 'form-row')
     const deleteLabel = dueInput.nextElementSibling;
     deleteLabel.textContent = 'Remove Task ';
+    deleteRow.appendChild(deleteLabel);
     
     const deleteInput = newEditForm.querySelector('#delete-task');
     deleteInput.setAttribute('type', 'checkbox');
     deleteInput.setAttribute('name', 'delete-task')
+    deleteRow.appendChild(deleteInput);
+    newEditForm.append(deleteRow);
 
     const confirmTaskEdit = createDOMElement('button', 'edit-task-button', 'confirm');
     confirmTaskEdit.textContent = 'Edit Task';
 
-    newEditForm.insertBefore(priorityLabel, deleteLabel);
-    newEditForm.insertBefore(priorityInput, deleteLabel);
+    newEditForm.insertBefore(priorityLabel, deleteRow);
+    newEditForm.insertBefore(priorityInput, deleteRow);
     newEditForm.appendChild(confirmTaskEdit);
 
     return newEditForm;

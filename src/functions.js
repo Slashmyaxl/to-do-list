@@ -36,5 +36,9 @@ function createForm (className, idValue, ...inputs) {
     return newForm;
 }
 
+function sortByDueDate ({due}) {
+
+}
+
 
 export { removeFromList, createDOMElement, createForm }
