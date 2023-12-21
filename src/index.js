@@ -12,6 +12,4 @@ taskCreator('Laundry', 'with towels', format(new Date(), "MM-dd-yyyy"), 'low', p
 
 loadFrontPage();
 
-
-
 console.log('\n\n\nPage Initialized');
