@@ -55,8 +55,6 @@ function displayProjects() {
     for (const project of projects) {
         addProjectToDOM(project);
     }
-
-    console.log(projects);
 }
 
 function clearProjects() {
@@ -64,7 +62,5 @@ function clearProjects() {
     while (content.firstChild) content.removeChild(content.lastChild)
     while (sidebarProjects.firstChild) sidebarProjects.removeChild(sidebarProjects.lastChild) 
 }
-
-
 
 export { displayProjects, clearProjects }

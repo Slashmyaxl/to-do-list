@@ -65,13 +65,14 @@ export default function displayTaskToDOM(task, project) {
     const priority = createDOMElement('p', '', 'task-priority');
     priority.textContent = `PRIORITY`;
     if (task.priority === 'high') {
-        priority.style.cssText = 'background: rgba(252, 42, 4, 0.7);';
-        taskContainer.style.cssText = 'box-shadow: inset 1px 1px 2px rgb(252, 42, 4), inset -1px -1px 2px rgb(252, 42, 4);';
+        priority.style.cssText = 'background: rgba(255, 52, 0, 0.8);';
+        taskContainer.style.cssText = 'box-shadow: inset 4px 0 rgba(255, 52, 0, 0.8)';
     } else if (task.priority === 'normal') {
-        priority.style.cssText = 'background: rgba(250, 240, 94, 0.7);';
-        taskContainer.style.cssText = 'box-shadow: inset 1px 1px 2px rgb(250, 240, 94), inset -1px -1px 2px rgb(250,240,94);';
+        priority.style.cssText = 'background: rgba(240, 232, 94, 0.8);';
+        taskContainer.style.cssText = 'box-shadow: inset 4px 0  rgba(240, 232, 94, 0.8)';
     } else {
-        priority.style.cssText = 'background: rgba(160, 252, 2, 0.8)';
+        priority.style.cssText = 'background: rgba(140, 222, 82, 0.8)';
+        taskContainer.style.cssText = 'box-shadow: inset 4px 0 rgba(140, 222, 82)';
     }
 
     taskInfo.appendChild(priority);

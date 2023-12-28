@@ -30,7 +30,7 @@ function createEditProjectIcon(projectID) {
                 const project = projects[newEditProjectForm.id];
         
                 project.editTitle(projectTitle.value);
-                if (projectRemove.checked) project.removeFromList(projects);
+                if (projectRemove.checked) project.removeFromList();
                 formContainer.removeChild(formContainer.lastChild);
                 clearProjects();
                 displayProjects();

@@ -1,8 +1,5 @@
-function removeFromList (list) {
-
-    list.splice(list.indexOf(this), 1);
-    console.log(`${this.title} removed`)
-}
+import { format } from 'date-fns';
+import { projects } from './projects';
 
 function createDOMElement (elementName, idValue, ...classNames) {
 
@@ -36,9 +33,17 @@ function createForm (className, idValue, ...inputs) {
     return newForm;
 }
 
-function sortByDueDate ({due}) {
+function formatDate (date) {
 
+    console.log(date);
+    //Re-format hyphenated dates as "date-fns" format() alone subtracts 1 day
+    const dateString = date.replace(/-/g, '/');
+    const formattedDate = format(dateString, 'MM-dd-yyyy');
+    return formattedDate;
 }
 
+function updateStorage () {
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
 
-export { removeFromList, createDOMElement, createForm }
+export { createDOMElement, createForm, formatDate, updateStorage }
