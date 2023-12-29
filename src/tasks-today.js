@@ -10,7 +10,7 @@ const projectsIcon = document.querySelector('#projects');
 
 export default function loadDailyTasks () {
 
-    const projectCard = createDOMElement('div', '', 'project-card', 'task-card');
+    const projectCard = createDOMElement('div', 'daily-card', 'project-card', 'task-card');
     const projectHeader = createDOMElement('div', '', 'project-header');
 
     const projectTitle = createDOMElement('h2');
@@ -34,6 +34,7 @@ export default function loadDailyTasks () {
             }
         }  
     }
+
     activateProjectsNav();
 }
 

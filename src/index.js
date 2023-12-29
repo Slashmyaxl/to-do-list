@@ -3,4 +3,4 @@ import loadFrontPage from './frontpage.js';
 
 loadFrontPage();
 
-console.log('\n\n\nPage Initialized');
+console.log('\n\nPage Initialized');

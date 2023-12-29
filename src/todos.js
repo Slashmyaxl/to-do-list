@@ -1,12 +1,8 @@
-import { formatDate, updateStorage } from "./functions";
+import { formatDate, removeFromList, updateStorage } from "./functions";
 
 export default function taskCreator(title, description, dueDate, priority, {tasks}, completed) {
-
-    if(!dueDate) {
-        dueDate = formatDate(new Date().toLocaleDateString()); 
-    } else {
-        dueDate = formatDate(dueDate);
-    }
+  
+    dueDate = formatDate(dueDate);
 
     const task = { 
         title: title, 
@@ -30,22 +26,11 @@ function complete() {
 
 function editTask(title, description, dueDate, priority) {
 
-    if(!dueDate) {
-        dueDate = formatDate(new Date().toLocaleDateString); 
-    } else {
-        dueDate = formatDate(dueDate);
-    }
+    dueDate = formatDate(dueDate);
 
     this.title = title;
     this.description = description;
     this.due = dueDate;
     this.priority = priority;
     updateStorage();
-}
-
-function removeFromList (tasks) {
-
-    tasks.splice(tasks.indexOf(this), 1);
-    updateStorage();
-    console.log(`${this.title} removed from its project`)
 }

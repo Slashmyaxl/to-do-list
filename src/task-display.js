@@ -45,12 +45,12 @@ export default function displayTaskToDOM(task, project) {
         task.complete();
         if(task.completed === true) {
             completed.textContent = 'Complete';
-            taskContainer.style.background = 'lightgreen';
-            taskContainer.style.opacity = '0.55';
+            taskContainer.style.cssText = 'background: lightgreen; opacity: 0.55; text-decoration: line-through;';
         } else {
             completed.textContent = 'Pending Completion';
             taskContainer.style.background = '#fefefe';
             taskContainer.style.opacity = 'unset';
+            taskContainer.style.cssText = 'text-decoration: none;';
         }
     });
     
@@ -65,14 +65,14 @@ export default function displayTaskToDOM(task, project) {
     const priority = createDOMElement('p', '', 'task-priority');
     priority.textContent = `PRIORITY`;
     if (task.priority === 'high') {
-        priority.style.cssText = 'background: rgba(255, 52, 0, 0.8);';
-        taskContainer.style.cssText = 'box-shadow: inset 4px 0 rgba(255, 52, 0, 0.8)';
+        priority.style.cssText = 'background: rgba(255,52,0, 0.9); color: #fafafa; font-weight: bolder; box-shadow: 0 0 4px rgba(255,53,0,0.9);';
+        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(255,52,0, 0.9)';
     } else if (task.priority === 'normal') {
-        priority.style.cssText = 'background: rgba(240, 232, 94, 0.8);';
-        taskContainer.style.cssText = 'box-shadow: inset 4px 0  rgba(240, 232, 94, 0.8)';
+        priority.style.cssText = 'background: rgba(255, 222, 24, 0.9); box-shadow: 0 0 3px rgba(255,222,24,0.9);';
+        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(255, 222, 24, 0.9)';
     } else {
-        priority.style.cssText = 'background: rgba(140, 222, 82, 0.8)';
-        taskContainer.style.cssText = 'box-shadow: inset 4px 0 rgba(140, 222, 82)';
+        priority.style.cssText = 'background: rgba(140, 222, 82, 0.8); box-shadow: 0 0 3px rgba(140,222,82,0.8);';
+        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(140, 222, 82, 0.9)';
     }
 
     taskInfo.appendChild(priority);
@@ -81,8 +81,7 @@ export default function displayTaskToDOM(task, project) {
     if(task.completed === true) {
         completed.textContent = 'Complete';
         completionBox.setAttribute('checked', true);
-        taskContainer.style.background = 'lightgreen';
-        taskContainer.style.opacity = '0.55';
+        taskContainer.style.cssText = 'background: lightgreen; opacity: 0.55; text-decoration: line-through;';
     } else {
         completed.textContent = 'Pending Completion';
         taskContainer.style.background = '#fefefe';

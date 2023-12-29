@@ -20,7 +20,7 @@ function createEditProjectIcon(projectID) {
         } else {
             formContainer.appendChild(newEditProjectForm);
             
-            //  Button that submits changes for project editing
+            //  Button submits changes for project editing
 
             const confirmProjectEdit = document.querySelector('#edit-project-button');
             confirmProjectEdit.addEventListener('click', (e) => {
@@ -30,7 +30,7 @@ function createEditProjectIcon(projectID) {
                 const project = projects[newEditProjectForm.id];
         
                 project.editTitle(projectTitle.value);
-                if (projectRemove.checked) project.removeFromList();
+                if (projectRemove.checked) project.removeFromList(projects);
                 formContainer.removeChild(formContainer.lastChild);
                 clearProjects();
                 displayProjects();
@@ -55,7 +55,7 @@ function createAddTaskIcon(projectID) {
         } else {
             formContainer.appendChild(newAddTaskForm);
 
-            //  Button that adds task to project
+            //  Button adds task to project
 
             const confirmProjectAdd = document.querySelector('#add-task-button');
             confirmProjectAdd.addEventListener('click', (e) => {
@@ -67,7 +67,6 @@ function createAddTaskIcon(projectID) {
                 const project = projects[newAddTaskForm.id];
 
                 taskCreator(taskName.value, taskDescription.value, taskDueDate.value, taskPriority.value, project);
-                console.log(taskDueDate.value);
                 clearProjects();
                 displayProjects();
             })
@@ -97,7 +96,7 @@ function createEditTaskIcon (taskID, projectID) {
         } else {
             formContainer.appendChild(newEditTaskForm);
 
-            //  Button that submits task editing/deleting
+            //  Button submits task editing/deleting
 
             const confirmEditTask = document.querySelector('#edit-task-button');
             confirmEditTask.addEventListener('click', (e) => {

@@ -10,7 +10,7 @@ function addProjectToDOM(project) {
 
     const projectID = `${projects.indexOf(project)}`
 
-    const projectCard = createDOMElement('div', projectID, 'project-card');
+    const projectCard = createDOMElement('div', `card-${projectID}`, 'project-card');
     const projectHeader = createDOMElement('div', '', 'project-header');
 
     const formContainer = createDOMElement('div', `form-container-${projectID}`, 'form-container');
@@ -45,9 +45,12 @@ function addProjectToDOM(project) {
             projectCard.appendChild(taskContainer);
         }
 
-    const sidebarProject = createDOMElement('h3', '', 'sidebar-project')
+    const sidebarLink = createDOMElement('a', '', 'sidebar-link');
+    sidebarLink.setAttribute('href', `#card-${projectID}`);
+    const sidebarProject = createDOMElement('p', '', 'sidebar-project')
     sidebarProject.textContent = project.title;
-    sidebarProjects.appendChild(sidebarProject);
+    sidebarLink.appendChild(sidebarProject);
+    sidebarProjects.appendChild(sidebarLink);
 }
 
 function displayProjects() {
