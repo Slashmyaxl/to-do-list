@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>To-Do Projects</title>
+        <script src="./main.js" defer></script>
+    </head>
+    <body>
+        <div class="grid-container">
+            <nav class="navbar">
+                <div class="nav-item">
+                    <h1 class="side-header">My To-Dos</h1>
+                </div>
+                <div class="nav-item">
+                    <img src="../src/icons/format-list-bulleted.svg" alt="Daily Tasks Icon" class="icon" id="daily-tasks">
+                    <h2 class="side-header">Today's Tasks</h2>
+                </div>
+                <div class="nav-item">
+                    <img src="../src/icons/folder-multiple-outline.svg" alt="Projects Icon" class="icon" id="projects">
+                    <h2 class="side-header" id="projects">Projects</h2>
+                </div>
+                <div id="projects-sidebar"></div>
+                <div class="nav-item end-nav-item" id="project-nav">
+                    <img src="../src/icons/script-outline.svg" alt="Add Icon" class="icon" id="add-project">
+                    <p>Add a Project</p>
+                    <form action="" id="project-form" hidden>
+                        <div class="form-title"><h4>Add a Project</h4></div>
+                        <div class="form-row">
+                        <label for="project-title">Title </label>
+                        <input type="text" id="project-title" name="project-title" placeholder="Name your Project" minlength="1" required>
+                        </div>
+                        <button class="new" id="submit-project">Add Project</button>
+                    </form>
+                </div>
+                <div class="nav-item end-nav-item" id="clear-nav">
+                    <img src="../src/icons/delete-variant.svg" class="icon" id="delete-completed" alt="Remove All Completed Tasks Icon">
+                    <p>Completed Tasks</p>
+                </div>
+            </nav>
+            <div id="content">
+                
+            </div>
+        </div>
+    </body>
+</html>
