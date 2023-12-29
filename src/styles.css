@@ -136,7 +136,7 @@
     grid-template-columns: repeat(auto-fit, minmax(380px, 0.65fr));
     grid-template-rows: repeat(auto-fit, minmax(360px, min-content));
     gap: 1.75rem;
-    padding: 2rem;
+    padding: 2rem 2.25rem;
     letter-spacing: 0.015rem;
 }
 
@@ -258,7 +258,7 @@
     border-radius: 1.4rem;
     width: min-content;
     font-size: 0.58rem;
-    font-weight: 500;
+    font-weight: 700;
     padding: 0.1rem 0.45rem;
 }
 
