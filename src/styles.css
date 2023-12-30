@@ -27,12 +27,13 @@
 
 .grid-container {
     min-height: 100vh;
-    height: max(100%, max-content);
+    height: max-content;
     display: grid;
     grid-template-columns: max(236px, 16%) 1fr;
 }
 
 .navbar {
+    min-height: 100vh;
     display: grid;
     grid-template-rows: repeat(auto-fit, minmax(24px, min-content));
     row-gap: 0.4rem;
