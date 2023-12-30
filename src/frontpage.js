@@ -55,14 +55,11 @@ function checkStorage () {
     const today = formatDate(new Date().toLocaleDateString());
 
     if(!localStorage.getItem('projects')) {
-        projectCreator('Unspecified To-Dos');
-            taskCreator('Buy flowers', 'For cousin\'s baby shower', today, 'normal', projects[0]);
-            taskCreator('Make breakfast', 'Oatmeal w/ berries & nuts', today, 'high', projects[0]);
         projectCreator('Cat Care');
-            taskCreator('Breakfast 6AM', '1/4 cup dry food', today, 'high', projects[1]);
-            taskCreator('AM Snack', '6 greenies', today, 'low', projects[1]);
-            taskCreator('Brush', '', today, 'normal', projects[1]);
-            taskCreator('Dinner 6PM', '1 can purina wet food', today, 'high', projects[1]);
+            taskCreator('Breakfast 6AM', '1/4 cup dry food', today, 'high', projects[0]);
+            taskCreator('AM Snack', '6 greenies', today, 'low', projects[0]);
+            taskCreator('Brush', '', today, 'normal', projects[0]);
+            taskCreator('Dinner 6PM', '1 can purina wet food', today, 'high', projects[0]);
         
     } else {
         const storageArray = JSON.parse(localStorage.getItem('projects'));

@@ -45,12 +45,14 @@ export default function displayTaskToDOM(task, project) {
         task.complete();
         if(task.completed === true) {
             completed.textContent = 'Complete';
-            taskContainer.style.cssText = 'background: lightgreen; opacity: 0.55; text-decoration: line-through;';
+            taskContainer.style.background = 'lightgreen'; 
+            taskContainer.style.opacity = '0.55';
+            taskHeader.style.cssText = 'text-decoration: line-through';
         } else {
             completed.textContent = 'Pending Completion';
             taskContainer.style.background = '#fefefe';
             taskContainer.style.opacity = 'unset';
-            taskContainer.style.cssText = 'text-decoration: none;';
+            taskHeader.style.cssText = 'text-decoration: none;';
         }
     });
     
@@ -81,11 +83,14 @@ export default function displayTaskToDOM(task, project) {
     if(task.completed === true) {
         completed.textContent = 'Complete';
         completionBox.setAttribute('checked', true);
-        taskContainer.style.cssText = 'background: lightgreen; opacity: 0.55; text-decoration: line-through;';
+        taskContainer.style.background = 'lightgreen';
+        taskContainer.style.opacity = '0.55';
+        taskHeader.style.cssText = 'text-decoration: line-through;';
     } else {
         completed.textContent = 'Pending Completion';
         taskContainer.style.background = '#fefefe';
         taskContainer.style.opacity = 'unset';
+        taskHeader.style.cssText = 'text-decoration: none;';
     }
     taskInfo.appendChild(completed);
 
