@@ -1,7 +1,6 @@
 :root {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     background-color: #fdfdfd;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -14,6 +13,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 @font-face {
@@ -25,14 +25,20 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@200&display=swap');
 
+body {
+    min-height: 100vh;
+    background: lightblue;
+}
+
 .grid-container {
+    min-height: 100vh;
+    background: hsl(358, 91%, 96%);
     display: grid;
     grid-template-columns: max(236px, 16%) 1fr;
-    grid-template-rows: auto;
+    column-gap: 5px;
 }
 
 .navbar {
-    min-height: 100vh;
     display: grid;
     grid-template-rows: repeat(auto-fit, minmax(24px, min-content));
     row-gap: 0.4rem;
@@ -40,6 +46,8 @@
     background: var(--palate-cyan);
     border-right: 1px solid #444;
     border-radius: 0px 3px 0px 0px;
+    box-shadow: 1px 0px 2px #555;
+    padding: 0.75rem 0;
 }
 
 .navbar h1 {
@@ -52,7 +60,7 @@
 
 .navbar h2 {
     font-size: 1.3rem;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .navbar p {
@@ -69,14 +77,9 @@
 
 .navbar .icon {
     cursor: pointer;
-    height: 82%;
+    height: 100%;
     width: calc(height);
     padding: 0.25rem;
-}
-
-.navbar #add-project, .navbar #delete-completed {
-    height: 38x;
-    width: 38px;
 }
 
 .navbar .icon:hover {
@@ -93,12 +96,11 @@
 }
 
 .navbar > .nav-item:first-child {
-    font-family: 'Urbanist';
-    height: 60px;
-    margin-top: 0.75rem;
+    font-family: 'Urbanist', Arial, Helvetica, sans-serif;
+    height: min-content;
     background: hsla(0, 5%, 5%, 0.8);
     color: #fefefe;
-    padding: 0.25rem;
+    padding: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -132,7 +134,6 @@
 
 #content {
     display: grid;
-    background: hsl(358, 91%, 95%);
     grid-template-columns: repeat(auto-fit, minmax(380px, 0.65fr));
     grid-template-rows: repeat(auto-fit, minmax(360px, min-content));
     gap: 1.75rem;
@@ -152,7 +153,8 @@
 }
 
 .project-header {
-    font-family: 'Ubuntuu', 'Mulish', Helvetica, 'Arial', sans-serif;
+    font-family: 'Ubuntu', 'Mulish', Helvetica, 'Arial', sans-serif;
+    font-weight: 200;
     font-size: 1.1rem;
     padding: 0.25rem 0.35rem;
     border-bottom: 1px solid gray;

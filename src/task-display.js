@@ -68,13 +68,13 @@ export default function displayTaskToDOM(task, project) {
     priority.textContent = `PRIORITY`;
     if (task.priority === 'high') {
         priority.style.cssText = 'background: rgba(255,52,0, 0.9); color: #fafafa; font-weight: bolder; box-shadow: 0 0 4px rgba(255,53,0,0.9);';
-        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(255,52,0, 0.9)';
+        taskContainer.style.cssText = 'box-shadow: inset 1px 0 2px rgba(255,52,0, 0.95)';
     } else if (task.priority === 'normal') {
         priority.style.cssText = 'background: rgba(255, 222, 24, 0.9); box-shadow: 0 0 3px rgba(255,222,24,0.9);';
-        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(255, 222, 24, 0.9)';
+        taskContainer.style.cssText = 'box-shadow: inset 1px 0 2px rgba(255, 222, 24, 0.95)';
     } else {
         priority.style.cssText = 'background: rgba(140, 222, 82, 0.8); box-shadow: 0 0 3px rgba(140,222,82,0.8);';
-        taskContainer.style.cssText = 'box-shadow: inset 1px -1px 3px rgba(140, 222, 82, 0.9)';
+        taskContainer.style.cssText = 'box-shadow: inset 1px 0 2px rgba(140, 222, 82, 0.95)';
     }
 
     taskInfo.appendChild(priority);
