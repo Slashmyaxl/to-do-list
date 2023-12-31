@@ -75,8 +75,8 @@ body {
 
 .navbar .icon {
     cursor: pointer;
-    height: 100%;
-    width: calc(height);
+    height: 52px;
+    width: 52px;
     padding: 0.25rem;
 }
 
